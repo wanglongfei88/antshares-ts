@@ -1,4 +1,4 @@
-namespace AntShares.Core
+namespace Neo.Core
 {
     export class Order implements ISignable
     {

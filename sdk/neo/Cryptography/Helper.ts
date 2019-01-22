@@ -13,7 +13,7 @@ interface Uint8Array
     base64UrlEncode(): string;
 }
 
-namespace AntShares.Cryptography
+namespace Neo.Cryptography
 {
     String.prototype.base58Decode = function (): Uint8Array
     {

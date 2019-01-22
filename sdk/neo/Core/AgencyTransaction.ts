@@ -1,6 +1,6 @@
 /// <reference path="Transaction.ts"/>
 
-namespace AntShares.Core
+namespace Neo.Core
 {
     export class AgencyTransaction extends Transaction
     {

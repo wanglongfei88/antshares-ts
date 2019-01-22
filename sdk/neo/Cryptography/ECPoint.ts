@@ -1,4 +1,4 @@
-﻿namespace AntShares.Cryptography
+﻿namespace Neo.Cryptography
 {
     export class ECPoint
     {

@@ -1,4 +1,4 @@
-namespace AntShares.IO.Caching
+namespace Neo.IO.Caching
 {
     export enum TrackState
     {

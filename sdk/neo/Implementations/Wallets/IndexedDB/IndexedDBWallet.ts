@@ -1,6 +1,6 @@
-namespace AntShares.Implementations.Wallets.IndexedDB
+namespace Neo.Implementations.Wallets.IndexedDB
 {
-    export class IndexedDBWallet extends AntShares.Wallets.Wallet
+    export class IndexedDBWallet extends Neo.Wallets.Wallet
     {
         private db: WalletDataContext;
 
@@ -10,7 +10,7 @@ namespace AntShares.Implementations.Wallets.IndexedDB
             this.db = new WalletDataContext(name);
         }
 
-        public addContract(contract: AntShares.Wallets.Contract): PromiseLike<void>
+        public addContract(contract: Neo.Wallets.Contract): PromiseLike<void>
         {
             return super.addContract(contract).then(() =>
             {
@@ -46,16 +46,16 @@ namespace AntShares.Implementations.Wallets.IndexedDB
             });
         }
 
-        public createAccount(privateKey?: ArrayBuffer | Uint8Array): PromiseLike<AntShares.Wallets.Account>
+        public createAccount(privateKey?: ArrayBuffer | Uint8Array): PromiseLike<Neo.Wallets.Account>
         {
-            let account: AntShares.Wallets.Account;
+            let account: Neo.Wallets.Account;
             return super.createAccount(privateKey).then(result =>
             {
                 account = result;
                 return this.onCreateAccount(account);
             }).then(() =>
             {
-                return AntShares.Wallets.Contract.createSignatureContract(account.publicKey);
+                return Neo.Wallets.Contract.createSignatureContract(account.publicKey);
             }).then(result =>
             {
                 return this.addContract(result);
@@ -138,9 +138,9 @@ namespace AntShares.Implementations.Wallets.IndexedDB
             });
         }
 
-        protected loadAccounts(): PromiseLike<AntShares.Wallets.Account[]>
+        protected loadAccounts(): PromiseLike<Neo.Wallets.Account[]>
         {
-            let promises = new Array<PromiseLike<AntShares.Wallets.Account>>();
+            let promises = new Array<PromiseLike<Neo.Wallets.Account>>();
             let transaction = this.db.transaction("Account", "readonly");
             transaction.store("Account").openCursor().onsuccess = e =>
             {
@@ -149,7 +149,7 @@ namespace AntShares.Implementations.Wallets.IndexedDB
                 {
                     promises.push(this.decryptPrivateKey(cursor.value.privateKeyEncrypted.hexToBytes()).then(result =>
                     {
-                        return AntShares.Wallets.Account.create(result);
+                        return Neo.Wallets.Account.create(result);
                     }));
                     cursor.continue();
                 }
@@ -160,16 +160,16 @@ namespace AntShares.Implementations.Wallets.IndexedDB
             });
         }
 
-        protected loadCoins(): PromiseLike<AntShares.Wallets.Coin[]>
+        protected loadCoins(): PromiseLike<Neo.Wallets.Coin[]>
         {
-            let array = new Array<AntShares.Wallets.Coin>();
+            let array = new Array<Neo.Wallets.Coin>();
             let transaction = this.db.transaction("Coin", "readonly");
             transaction.store("Coin").openCursor().onsuccess = e =>
             {
                 let cursor = <IDBCursorWithValue>(<IDBRequest>e.target).result;
                 if (cursor)
                 {
-                    let coin = new AntShares.Wallets.Coin();
+                    let coin = new Neo.Wallets.Coin();
                     coin.input = new Core.TransactionInput();
                     coin.input.prevHash = Uint256.parse(cursor.value.txid);
                     coin.input.prevIndex = cursor.value.index;
@@ -187,16 +187,16 @@ namespace AntShares.Implementations.Wallets.IndexedDB
             });
         }
 
-        protected loadContracts(): PromiseLike<AntShares.Wallets.Contract[]>
+        protected loadContracts(): PromiseLike<Neo.Wallets.Contract[]>
         {
-            let array = new Array<AntShares.Wallets.Contract>();
+            let array = new Array<Neo.Wallets.Contract>();
             let transaction = this.db.transaction("Contract", "readonly");
             transaction.store("Contract").openCursor().onsuccess = e =>
             {
                 let cursor = <IDBCursorWithValue>(<IDBRequest>e.target).result;
                 if (cursor)
                 {
-                    let contract = new AntShares.Wallets.Contract();
+                    let contract = new Neo.Wallets.Contract();
                     contract.redeemScript = cursor.value.redeemScript.hexToBytes().buffer;
                     contract.parameterList = cursor.value.parameterList;
                     contract.publicKeyHash = Uint160.parse(cursor.value.publicKeyHash);
@@ -219,7 +219,7 @@ namespace AntShares.Implementations.Wallets.IndexedDB
             });
         }
 
-        private onCoinsChanged(transaction: DbTransaction, added: AntShares.Wallets.Coin[], changed: AntShares.Wallets.Coin[], deleted: AntShares.Wallets.Coin[]): void
+        private onCoinsChanged(transaction: DbTransaction, added: Neo.Wallets.Coin[], changed: Neo.Wallets.Coin[], deleted: Neo.Wallets.Coin[]): void
         {
             for (let i = 0; i < added.length; i++)
             {
@@ -230,7 +230,7 @@ namespace AntShares.Implementations.Wallets.IndexedDB
                     assetId: added[i].assetId.toString(),
                     value: added[i].value.toString(),
                     scriptHash: added[i].scriptHash.toString(),
-                    state: AntShares.Wallets.CoinState.Unspent
+                    state: Neo.Wallets.CoinState.Unspent
                 });
             }
             for (let i = 0; i < changed.length; i++)
@@ -254,7 +254,7 @@ namespace AntShares.Implementations.Wallets.IndexedDB
             }
         }
 
-        private onCreateAccount(account: AntShares.Wallets.Account): PromiseLike<void>
+        private onCreateAccount(account: Neo.Wallets.Account): PromiseLike<void>
         {
             let decryptedPrivateKey = new Uint8Array(96);
             Array.copy(account.publicKey.encodePoint(false), 1, decryptedPrivateKey, 0, 64);
@@ -268,7 +268,7 @@ namespace AntShares.Implementations.Wallets.IndexedDB
             });
         }
 
-        protected onProcessNewBlock(block: Core.Block, transactions: Core.Transaction[], added: AntShares.Wallets.Coin[], changed: AntShares.Wallets.Coin[], deleted: AntShares.Wallets.Coin[]): PromiseLike<void>
+        protected onProcessNewBlock(block: Core.Block, transactions: Core.Transaction[], added: Neo.Wallets.Coin[], changed: Neo.Wallets.Coin[], deleted: Neo.Wallets.Coin[]): PromiseLike<void>
         {
             let transaction = this.db.transaction(["Coin", "Key", "Transaction"], "readwrite");
             transaction.store("Transaction").index("height").openCursor(IDBKeyRange.only(-1)).onsuccess = e =>
@@ -301,7 +301,7 @@ namespace AntShares.Implementations.Wallets.IndexedDB
             return transaction.commit();
         }
 
-        protected onSaveTransaction(tx: Core.Transaction, added: AntShares.Wallets.Coin[], changed: AntShares.Wallets.Coin[]): PromiseLike<void>
+        protected onSaveTransaction(tx: Core.Transaction, added: Neo.Wallets.Coin[], changed: Neo.Wallets.Coin[]): PromiseLike<void>
         {
             let transaction = this.db.transaction(["Coin", "Transaction"], "readwrite");
             transaction.store("Transaction").add({

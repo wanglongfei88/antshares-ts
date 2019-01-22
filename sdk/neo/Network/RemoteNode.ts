@@ -1,4 +1,4 @@
-﻿namespace AntShares.Network
+﻿namespace Neo.Network
 {
     export class RemoteNode
     {

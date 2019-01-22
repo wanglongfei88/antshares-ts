@@ -1,4 +1,4 @@
-﻿namespace AntShares.Cryptography
+﻿namespace Neo.Cryptography
 {
     let _secp256k1: ECCurve;
     let _secp256r1: ECCurve;

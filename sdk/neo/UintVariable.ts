@@ -1,4 +1,4 @@
-﻿namespace AntShares
+﻿namespace Neo
 {
     export abstract class UintVariable
     {

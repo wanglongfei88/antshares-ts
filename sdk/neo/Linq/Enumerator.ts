@@ -1,4 +1,4 @@
-namespace AntShares.Linq
+namespace Neo.Linq
 {
     export abstract class Enumerator<T>
     {

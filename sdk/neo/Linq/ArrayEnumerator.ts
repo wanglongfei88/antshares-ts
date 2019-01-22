@@ -1,6 +1,6 @@
 /// <reference path="Enumerator.ts"/>
 
-namespace AntShares.Linq
+namespace Neo.Linq
 {
     export class ArrayEnumerator<T> extends Enumerator<T>
     {

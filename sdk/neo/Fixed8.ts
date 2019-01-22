@@ -1,4 +1,4 @@
-namespace AntShares
+namespace Neo
 {
     const D = 100000000;
 

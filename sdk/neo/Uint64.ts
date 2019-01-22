@@ -1,4 +1,4 @@
-namespace AntShares
+namespace Neo
 {
     let _max: Uint64, _min: Uint64;
 

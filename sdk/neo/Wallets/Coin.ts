@@ -1,4 +1,4 @@
-namespace AntShares.Wallets
+namespace Neo.Wallets
 {
     export class Coin implements IO.Caching.ITrackable<string>
     {

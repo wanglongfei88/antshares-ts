@@ -1,6 +1,6 @@
 ﻿/// <reference path="Stream.ts"/>
 
-namespace AntShares.IO
+namespace Neo.IO
 {
     const BufferSize = 1024;
 

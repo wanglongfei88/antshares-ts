@@ -1,4 +1,4 @@
-﻿namespace AntShares.Implementations.Wallets.IndexedDB
+﻿namespace Neo.Implementations.Wallets.IndexedDB
 {
     export class WalletDataContext extends DbContext
     {

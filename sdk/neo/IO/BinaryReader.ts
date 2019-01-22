@@ -1,4 +1,4 @@
-﻿namespace AntShares.IO
+﻿namespace Neo.IO
 {
     export class BinaryReader
     {

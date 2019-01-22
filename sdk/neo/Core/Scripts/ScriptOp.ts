@@ -1,4 +1,4 @@
-﻿namespace AntShares.Core.Scripts
+﻿namespace Neo.Core.Scripts
 {
     export const enum ScriptOp
     {

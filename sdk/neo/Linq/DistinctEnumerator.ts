@@ -1,4 +1,4 @@
-namespace AntShares.Linq
+namespace Neo.Linq
 {
     export class DistinctEnumerator<T> extends Enumerator<T>
     {

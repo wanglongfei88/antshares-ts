@@ -1,4 +1,4 @@
-﻿namespace AntShares
+﻿namespace Neo
 {
     const DB = 26;
     const DM = (1 << DB) - 1;

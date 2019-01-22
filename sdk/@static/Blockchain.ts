@@ -1,4 +1,4 @@
-﻿namespace AntShares.Core
+﻿namespace Neo.Core
 {
     Blockchain.GenesisBlock.ensureHash();
     for (let i = 0; i < Blockchain.GenesisBlock.transactions.length; i++)

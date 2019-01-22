@@ -1,6 +1,6 @@
 /// <reference path="../../../Core/Blockchain.ts"/>
 
-namespace AntShares.Implementations.Blockchains.RPC
+namespace Neo.Implementations.Blockchains.RPC
 {
     export class RpcBlockchain extends Core.Blockchain
     {

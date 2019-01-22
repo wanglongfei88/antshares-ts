@@ -1,4 +1,4 @@
-namespace AntShares.Core
+namespace Neo.Core
 {
     export abstract class Transaction extends Network.Inventory
     {
@@ -41,7 +41,7 @@ namespace AntShares.Core
             {
                 let reader = <IO.BinaryReader>arguments[0];
                 let type = <TransactionType>reader.readByte();
-                let typeName = "AntShares.Core." + TransactionType[type];
+                let typeName = "Neo.Core." + TransactionType[type];
                 let t = eval(typeName);
                 let transaction = <Transaction>new t();
                 if (transaction == null) throw new Error();

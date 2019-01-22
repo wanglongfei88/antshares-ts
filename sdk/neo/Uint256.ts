@@ -1,4 +1,4 @@
-namespace AntShares
+namespace Neo
 {
     let _zero: Uint256;
 

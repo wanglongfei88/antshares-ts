@@ -1,4 +1,4 @@
-namespace AntShares.Core
+namespace Neo.Core
 {
     export interface ISignable extends IO.ISerializable
     {

@@ -1,4 +1,4 @@
-﻿namespace AntShares.Network.RPC
+﻿namespace Neo.Network.RPC
 {
     export class RpcClient
     {
